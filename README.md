@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/spacepants/puppet-drupal.svg)](https://travis-ci.org/spacepants/puppet-drupal)
+
 #### Table of Contents
 
 1. [Overview](#overview)
