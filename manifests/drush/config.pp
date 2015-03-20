@@ -43,6 +43,13 @@ class drupal::drush::config {
     order   => 0,
   }
 
+  concat::fragment { 'drush profile path':
+  ensure  => present,
+  target  => 'drush profile',
+  content => 'export PATH=$PATH:/usr/local/bin\n\n',
+  order   => 1,
+  }
+
   $drush_ini_ensure = $::drupal::drush_ini ? {
       undef   => absent,
       default => present,
@@ -51,7 +58,7 @@ class drupal::drush::config {
     ensure  => $drush_ini_ensure,
     target  => 'drush profile',
     content => "export DRUSH_INI=${drupal::drush_ini}\n",
-    order   => 1,
+    order   => 2,
   }
 
   $drush_php_ensure = $::drupal::drush_php ? {
@@ -62,7 +69,7 @@ class drupal::drush::config {
     ensure  => $drush_php_ensure,
     target  => 'drush profile',
     content => "export DRUSH_PHP=${drupal::drush_php}\n",
-    order   => 1,
+    order   => 2,
   }
 
   $php_ini_ensure = $::drupal::php_ini ? {
@@ -73,14 +80,14 @@ class drupal::drush::config {
     ensure  => $php_ini_ensure,
     target  => 'drush profile',
     content => "export PHP_INI=${drupal::php_ini}\n",
-    order   => 1,
+    order   => 2,
   }
 
   concat::fragment { 'drush profile dslm_base':
     ensure  => present,
     target  => 'drush profile',
     content => "export DSLM_BASE=${drupal::dslm_base}\n",
-    order   => 1,
+    order   => 2,
   }
 
   ::drupal::drush::extension { 'dslm':

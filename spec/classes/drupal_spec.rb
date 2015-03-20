@@ -37,6 +37,7 @@ describe 'drupal' do
           it { is_expected.to contain_file('/etc/bash_completion.d/drush').with_target('/opt/drush/vendor/drush/drush/drush.complete.sh') }
           it { is_expected.to contain_concat('drush profile').with_path('/etc/profile.d/drush.sh') }
           it { is_expected.to contain_concat__fragment('drush profile header').with_content(/# MANAGED BY PUPPET/) }
+          it { is_expected.to contain_concat__fragment('drush profile path').with_content('export PATH=$PATH:/usr/local/bin\n\n') }
           it { is_expected.to contain_concat__fragment('drush profile drush_ini').with_ensure('absent') }
           it { is_expected.to contain_concat__fragment('drush profile drush_php').with_ensure('absent') }
           it { is_expected.to contain_concat__fragment('drush profile php_ini').with_ensure('absent') }
