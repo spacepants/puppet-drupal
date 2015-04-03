@@ -6,7 +6,6 @@ class drupal::install {
 
   file { $::drupal::dslm_base:
     ensure  => directory,
-    require => Exec["${::drupal::drush_path} dl dslm"],
   }
 
   file { "${::drupal::dslm_base}/cores":
@@ -17,6 +16,10 @@ class drupal::install {
   file { "${::drupal::dslm_base}/profiles":
     ensure  => directory,
     require => File[$::drupal::dslm_base],
+  }
+
+  ::drupal::drush::extension { 'dslm':
+    require => File['/etc/profile.d/drushrc.sh'],
   }
 
   # todo: refactor to query and download latest drupal release via drush rl/dl

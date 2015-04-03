@@ -18,7 +18,7 @@ describe 'drupal' do
           it { is_expected.to contain_class('drupal::params') }
           it { is_expected.to contain_anchor('::drupal::begin').that_comes_before('drupal::drush') }
           it { is_expected.to contain_class('drupal::drush').that_comes_before('drupal::install') }
-          it { is_expected.to contain_class('drupal::install').that_comes_before('drupal::cacheclear') }
+          it { is_expected.to contain_class('drupal::install') }
           it { is_expected.to contain_class('drupal::cacheclear') }
           it { is_expected.to contain_anchor('::drupal::end').that_requires('drupal::cacheclear') }
 

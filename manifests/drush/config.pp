@@ -90,10 +90,6 @@ class drupal::drush::config {
     order   => 2,
   }
 
-  ::drupal::drush::extension { 'dslm':
-    require => File['/etc/profile.d/drushrc.sh'],
-  }
-
   if ::drupal::drush_extensions {
     ::drupal::drush::extension { $::drupal::drush_extensions:
       require => File['/etc/profile.d/drushrc.sh'],

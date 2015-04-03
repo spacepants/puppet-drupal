@@ -16,7 +16,7 @@ class drupal (
 
   anchor { '::drupal::begin': }     ->
   class { '::drupal::drush': }      ->
-  class { '::drupal::install': }    ->
+  class { '::drupal::install': }
   class { '::drupal::cacheclear': } ->
   anchor { '::drupal::end': }
 
