@@ -31,9 +31,15 @@ class drupal::drush::install {
     require => Exec['install drush'],
   }
 
+  file { '/usr/bin/drush':
+    ensure  => link,
+    target  => $::drupal::drush_path,
+    require => File[$::drupal::drush_path],
+  }
+
   exec { 'drush status':
     command     => "${::drupal::drush_path} status",
-    require     => File[$::drupal::drush_install_path],
+    require     => File['/usr/bin/drush'],
     refreshonly => true,
   }
 

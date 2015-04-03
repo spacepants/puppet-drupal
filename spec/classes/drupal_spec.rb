@@ -29,6 +29,7 @@ describe 'drupal' do
           it { is_expected.to contain_file('/opt/drush').with_ensure('directory') }
           it { is_expected.to contain_exec('install drush').with_command('/usr/local/bin/composer require drush/drush:dev-master') }
           it { is_expected.to contain_file('/usr/local/bin/drush').with_target('/opt/drush/vendor/bin/drush') }
+          it { is_expected.to contain_file('/usr/bin/drush').with_target('/usr/local/bin/drush') }
           it { is_expected.to contain_exec('drush status').with_refreshonly(true) }
           it { is_expected.to contain_file('/etc/drush').with_ensure('directory') }
           it { is_expected.to contain_file('/usr/share/drush').with_ensure('directory') }
