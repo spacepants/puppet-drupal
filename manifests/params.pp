@@ -4,7 +4,7 @@
 # It sets variables according to platform.
 #
 class drupal::params {
-  $available_cores    = [ '7.34' ]
+  $available_cores    = [ '7.37' ]
   $composer_path      = '/usr/local/bin/composer'
   $drush_path         = '/usr/local/bin/drush'
   $drush_extensions   = [ ]
