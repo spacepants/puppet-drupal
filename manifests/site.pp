@@ -4,27 +4,29 @@
 #
 define drupal::site (
   $ensure         = 'present',
-  $admin_password = randstr(),
-  $core           = undef,
-  $database       = undef,
-  $db_user        = undef,
-  $db_password    = undef,
-  $db_host        = undef,
-  $db_port        = undef,
-  $db_driver      = undef,
-  $db_prefix      = undef,
-  $update         = undef,
-  $docroot        = undef,
-  $writeaccess    = undef,
-  $base_url       = undef,
-  $cookie_domain  = undef,
-  $files_target   = undef,
-  $web_user       = undef,
-  $web_group      = undef,
+  $admin_password  = undef,
+  $core            = undef,
+  $database        = undef,
+  $db_user         = undef,
+  $db_password     = undef,
+  $db_host         = undef,
+  $db_port         = undef,
+  $db_driver       = undef,
+  $db_prefix       = undef,
+  $update          = undef,
+  $docroot         = undef,
+  $write_access    = undef,
+  $install_profile = 'standard',
+  $base_url        = undef,
+  $cookie_domain   = undef,
+  $files_target    = undef,
+  $web_user        = undef,
+  $web_group       = undef,
 ) {
   require ::drupal
 
   # validate yo params here
+  $local_settings_path = "${docroot}/${name}/sites/default/local.settings.php"
 
   exec { "scaffold out ${name} site root":
     command   => "${::drupal::drush_path} dslm-new ${name} ${core}",
@@ -57,7 +59,7 @@ define drupal::site (
   }
 
   exec { "install ${name} drupal site":
-    command   => "drush site-install standard --account-pass='${admin_password}' -l ${name} --yes --site-name=${name}",
+    command   => "drush site-install ${install_profile} --account-pass='${admin_password}' -l ${name} --yes --site-name=${name}",
     unless    => "drush status -l ${name} | grep 'bootstrap.*Successful'",
     logoutput => true,
     require   => File["${docroot}/${name}/sites/default/settings.php"]
