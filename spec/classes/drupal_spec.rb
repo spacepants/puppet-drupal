@@ -35,8 +35,8 @@ describe 'drupal' do
           it { is_expected.to contain_file('/usr/share/drush/commands').with_ensure('directory') }
           it { is_expected.to contain_file('/etc/profile.d/drushrc.sh').with_target('/opt/drush/vendor/drush/drush/examples/example.bashrc') }
           it { is_expected.to contain_file('/etc/bash_completion.d/drush').with_target('/opt/drush/vendor/drush/drush/drush.complete.sh') }
-          it { is_expected.to contain_drupal__drush__extension('dslm') }
-          it { is_expected.to contain_exec('/usr/local/bin/drush dl dslm') }
+          it { is_expected.to contain_drupal__drush__extension('dslm-7.x-2.x-dev') }
+          it { is_expected.to contain_exec('/usr/local/bin/drush dl dslm-7.x-2.x-dev') }
 
           it { is_expected.to contain_file('/var/drupal').with_ensure('directory') }
           it { is_expected.to contain_file('/var/drupal/cores').with_ensure('directory') }
