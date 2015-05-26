@@ -46,7 +46,7 @@ class drupal::drush::config {
   concat::fragment { 'drush profile path':
   ensure  => present,
   target  => 'drush profile',
-  content => "export PATH=$PATH:/usr/local/bin\n\n",
+  content => "export PATH=\$PATH:/usr/local/bin\n\n",
   order   => 1,
   }
 
