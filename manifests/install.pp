@@ -18,7 +18,8 @@ class drupal::install {
     require => File[$::drupal::dslm_base],
   }
 
-  ::drupal::drush::extension { 'dslm-7.x-2.x-dev':
+  ::drupal::drush::extension { 'dslm':
+    version => '7.x-2.x-dev',
     require => File['/etc/profile.d/drushrc.sh'],
   }
 
