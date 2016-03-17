@@ -24,7 +24,7 @@ class drupal::install {
   }
 
   # todo: refactor to query and download latest drupal release via drush rl/dl
-  ::drupal::core { $::drupal::available_cores:
+  ::drupal::core { $::drupal::cores:
     require => File["${::drupal::dslm_base}/cores"],
   }
 
