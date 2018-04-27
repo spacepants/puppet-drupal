@@ -37,54 +37,43 @@ class drupal::drush::config {
     path   => '/etc/profile.d/drush.sh',
   }
   concat::fragment { 'drush profile header':
-    ensure  => present,
     target  => 'drush profile',
     content => "# MANAGED BY PUPPET\n\n",
     order   => 0,
   }
 
   concat::fragment { 'drush profile path':
-  ensure  => present,
-  target  => 'drush profile',
-  content => "export PATH=\$PATH:/usr/local/bin\n\n",
-  order   => 1,
+    target  => 'drush profile',
+    content => "export PATH=\$PATH:/usr/local/bin\n\n",
+    order   => 1,
   }
 
-  $drush_ini_ensure = $::drupal::drush_ini ? {
-      undef   => absent,
-      default => present,
+  if $drush_ini_ensure {
+    concat::fragment { 'drush profile drush_ini':
+      target  => 'drush profile',
+      content => "export DRUSH_INI=${drupal::drush_ini}\n",
+      order   => 2,
     }
-  concat::fragment { 'drush profile drush_ini':
-    ensure  => $drush_ini_ensure,
-    target  => 'drush profile',
-    content => "export DRUSH_INI=${drupal::drush_ini}\n",
-    order   => 2,
   }
 
-  $drush_php_ensure = $::drupal::drush_php ? {
-      undef   => absent,
-      default => present,
+  if $drush_php_ensure {
+    concat::fragment { 'drush profile drush_php':
+      target  => 'drush profile',
+      content => "export DRUSH_PHP=${drupal::drush_php}\n",
+      order   => 2,
     }
-  concat::fragment { 'drush profile drush_php':
-    ensure  => $drush_php_ensure,
-    target  => 'drush profile',
-    content => "export DRUSH_PHP=${drupal::drush_php}\n",
-    order   => 2,
   }
 
-  $php_ini_ensure = $::drupal::php_ini ? {
-      undef   => absent,
-      default => present,
+  if $php_ini_ensure {
+    concat::fragment { 'drush profile php_ini':
+      ensure  => $php_ini_ensure,
+      target  => 'drush profile',
+      content => "export PHP_INI=${drupal::php_ini}\n",
+      order   => 2,
     }
-  concat::fragment { 'drush profile php_ini':
-    ensure  => $php_ini_ensure,
-    target  => 'drush profile',
-    content => "export PHP_INI=${drupal::php_ini}\n",
-    order   => 2,
   }
 
   concat::fragment { 'drush profile dslm_base':
-    ensure  => present,
     target  => 'drush profile',
     content => "export DSLM_BASE=${drupal::dslm_base}\n",
     order   => 2,
