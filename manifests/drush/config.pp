@@ -3,7 +3,11 @@
 # This class is meant to be called from drupal.
 # It ensures drush is doing a thing.
 #
-class drupal::drush::config {
+class drupal::drush::config(
+  $drush_ini_ensure = false,
+  $drush_php_ensure = false,
+  $php_ini_ensure   = false,
+) {
 
   file { '/etc/drush':
     ensure => directory,
